@@ -83,6 +83,24 @@ events and a featured story — the daily-freshness hook that needs no server.
 - First wave of the roadmap in `BACKFILL.md` (target: 600+ events, 120+
   figures, 12+ stories, all 5,000 years).
 
+### v4 — The Great Backfill, Wave 2: Middle Ages worldwide (2026-07-15)
+- **+73 events (→ 279) and +21 figures (→ 72)**. Middle Ages jumps from 14 to
+  79 events, and every region gets weight: Byzantium & the Islamic Golden Age
+  (Hagia Sophia, round-city Baghdad, al-Khwarizmi, Ibn Sina, Saladin, Córdoba,
+  Cairo, the 1258 Mongol sack), Tang/Song China + Japan/Korea/Khmer (Grand
+  Canal, Wu Zetian, Diamond Sutra, Bi Sheng's type, Murasaki's Genji, Angkor
+  Wat, the kamikaze, Jikji), medieval Africa (Aksum & Ezana, Ghana's gold,
+  Sundiata's Mali, Lalibela, Great Zimbabwe, Kilwa, Timbuktu's scholars,
+  Askia's Songhai, Ibn Battuta), Europe & the Vikings (Justinian's Code,
+  Rurik's Rus, Iceland's Althing, Canossa, Domesday, Bologna, El Cid, Gothic
+  Saint-Denis, first Parliament, Aquinas, Crécy, Chaucer) and the medieval
+  Americas + Pacific (Tikal, Pakal, Maya collapse, Cahokia, Mesa Verde, Chan
+  Chan, the Aztec Triple Alliance, Pachacuti & Machu Picchu) — with Oceania
+  finally a real presence (Polynesian voyaging, Tuʻi Tonga, Hawaiʻi's
+  ahupuaʻa, Māori Aotearoa, Rapa Nui's moai).
+- Verified: timeline smooth at all 4 zoom levels in both themes with 279
+  events; 0 page errors. Wave 2 of the `BACKFILL.md` roadmap.
+
 ## Next increments (small, shippable, in rough order)
 
 > **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8

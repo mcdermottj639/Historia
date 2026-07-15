@@ -3,7 +3,7 @@
 // files pass through; Wikipedia/OpenTDB requests go straight to the network.
 // CACHE is versioned (bump with APP_VERSION) so each deploy starts clean and
 // the activate handler purges stale caches.
-const CACHE = 'historia-v3';
+const CACHE = 'historia-v4';
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(

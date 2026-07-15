@@ -51,11 +51,11 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   Sports-Hub). New components must use the CSS vars so they theme for free.
 - `data/eras.js` — `H_ERAS`: 9 eras with year ranges, colors, emoji, intros.
   Era of an event is always **derived from its year** (`H_ERA_OF_YEAR`).
-- `data/events.js` — `H_EVENTS` (~206): the master event list
+- `data/events.js` — `H_EVENTS` (~279): the master event list
   `{id, y (neg = BCE), approx?, region, title, blurb, wiki?, fig?}`. **One
   dataset powers the timeline, Before/After, the Time Machine, era pages and
   future games** — grow this and everything gets richer.
-- `data/figures.js` — `H_FIGURES` (~51): `{id, name, born, died, era, region,
+- `data/figures.js` — `H_FIGURES` (~72): `{id, name, born, died, era, region,
   tag, facts[2], wiki}`. Powers the figures gallery + sheets (and the future
   Who Am I?).
 - `data/stories.js` — `H_STORIES`: Story Mode narratives
@@ -112,8 +112,18 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v3**.
+Current version as of this writing: **v4**.
 
+- **v4** — 🏰 The Great Backfill, Wave 2 (Middle Ages worldwide): +73 events
+  (279 total) and +21 figures (72 total). Byzantium & the Islamic Golden Age
+  (Hagia Sophia, Baghdad, al-Khwarizmi, Ibn Sina, Saladin, the Mongol sack of
+  Baghdad), Tang/Song China + Japan/Korea/Khmer (Wu Zetian, Murasaki's Genji,
+  Angkor Wat, the kamikaze, movable type), medieval Africa (Aksum, Ghana, Mali/
+  Sundiata, Great Zimbabwe, Kilwa, Timbuktu, Songhai), Europe & the Vikings
+  (Justinian, Kievan Rus, Canossa, universities, Gothic, Aquinas, Crécy,
+  Chaucer) and the medieval Americas + Pacific (Tikal, Cahokia, Chan Chan,
+  Machu Picchu, plus real Oceania weight: Polynesian voyaging, Rapa Nui moai,
+  Māori, Tuʻi Tonga). Middle Ages era jumps from 14 to 79 events.
 - **v3** — 🏛️ The Great Backfill, Wave 1 (Ancient World depth): +65 events
   (206 total) and +22 figures (51 total) across Mesopotamia, Egypt & Nubia/Kush,
   Persia, India (Indus→Maurya→Gupta), China (Shang→Han) and the early Americas
