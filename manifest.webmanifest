@@ -1,0 +1,14 @@
+{
+  "name": "Historia",
+  "short_name": "Historia",
+  "description": "History, the fun way — a 5,000-year timeline, cinematic stories, eras, figures and games.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14100c",
+  "theme_color": "#241a12",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
