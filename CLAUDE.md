@@ -51,11 +51,11 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   Sports-Hub). New components must use the CSS vars so they theme for free.
 - `data/eras.js` — `H_ERAS`: 9 eras with year ranges, colors, emoji, intros.
   Era of an event is always **derived from its year** (`H_ERA_OF_YEAR`).
-- `data/events.js` — `H_EVENTS` (~355): the master event list
+- `data/events.js` — `H_EVENTS` (~436): the master event list
   `{id, y (neg = BCE), approx?, region, title, blurb, wiki?, fig?}`. **One
   dataset powers the timeline, Before/After, the Time Machine, era pages and
   future games** — grow this and everything gets richer.
-- `data/figures.js` — `H_FIGURES` (~96): `{id, name, born, died, era, region,
+- `data/figures.js` — `H_FIGURES` (~122): `{id, name, born, died, era, region,
   tag, facts[2], wiki}`. Powers the figures gallery + sheets (and the future
   Who Am I?).
 - `data/stories.js` — `H_STORIES`: Story Mode narratives
@@ -117,8 +117,22 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v7**.
+Current version as of this writing: **v8**.
 
+- **v8** — 🗽 The Great Backfill, Wave 4 (1750–1914 dense pass): +81 events
+  (436 total) and +26 figures (122 total — the 120 figure goal is met). A dense
+  US thread (Revolution deep cuts, the early republic, the antebellum slavery
+  crisis, the Civil War, Reconstruction's 13th–15th Amendments, the Plains
+  Wars, the Gilded Age) balanced by Latin American independence (Bolívar, San
+  Martín, Toussaint, Hidalgo, Ayacucho, Ipiranga, Juárez, Brazil's Golden Law),
+  19th-c Asia (Opium Wars, Taiping, Perry, the Meiji Restoration, the Satsuma
+  rebellion, Tsushima, the Sepoy Rebellion, the Raj) and 19th-c Africa + the
+  industrial world (Muhammad Ali, Shaka's Zulu, Isandlwana, the Berlin
+  Conference, Khartoum, Leopold's Congo, Adwa, the Irish Famine, Marx, Pasteur,
+  Mendeleev). Age of Revolutions 21→56 events, Industrial Age 15→61. New figures
+  include Jefferson, Douglass, Sojourner Truth, Sacagawea, Sitting Bull, Ida B.
+  Wells, Bolívar, Rani Lakshmibai, Cixi, Menelik II and Florence Nightingale.
+  (Authored as v7 in parallel with a Story Mode layout fix; ships as v8 on top.)
 - **v7** — Story Mode slide layout fix: content slides now **vertically center**
   their kicker/title/body instead of pinning them to the bottom, which left a
   large dead gap in the middle of every non-intro slide. The intro slide keeps

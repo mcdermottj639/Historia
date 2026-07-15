@@ -132,6 +132,30 @@ events and a featured story — the daily-freshness hook that needs no server.
   it. Verified: the new scrubber/card-deck timeline renders cleanly with 355
   events in both themes; 0 page errors. Wave 3 of the `BACKFILL.md` roadmap.
 
+### v7 — Story Mode slide layout fix (2026-07-15)
+- Content slides now vertically center their kicker/title/body instead of
+  pinning them to the bottom (which left a dead gap mid-slide); the intro slide
+  keeps its title-card split via a new `.story-slide.intro` class. Shipped by a
+  separate session in parallel with the backfill.
+
+### v8 — The Great Backfill, Wave 4: 1750–1914 dense pass (2026-07-15)
+- **+81 events (→ 436) and +26 figures (→ 122 — the 120-figure goal is met)**.
+  Age of Revolutions jumps 21→56 events, Industrial Age 15→61. A dense US
+  thread (Revolution deep cuts, the early republic, the antebellum slavery
+  crisis, the Civil War, Reconstruction, the Plains Wars, the Gilded Age) is
+  balanced by Latin American independence (Bolívar, San Martín, Toussaint,
+  Hidalgo, Ayacucho, Ipiranga, Juárez, Brazil's Golden Law), 19th-century Asia
+  (Opium Wars, the Taiping, Perry, the Meiji Restoration, the Satsuma rebellion,
+  Tsushima, the Sepoy Rebellion, the Raj) and 19th-century Africa + the
+  industrial world (Muhammad Ali, Shaka's Zulu, Isandlwana, the Berlin
+  Conference, Khartoum, Leopold's Congo, Adwa, the Irish Famine, Marx,
+  Nightingale, Pasteur, Mendeleev). New figures span Jefferson, Douglass,
+  Sojourner Truth, Sacagawea, Sitting Bull, Ida B. Wells, Bolívar, Rani
+  Lakshmibai, Cixi, Menelik II and Florence Nightingale.
+- Authored as v7 in parallel with the Story Mode fix; ships as v8 on top.
+  Verified: the scrubber/card-deck timeline renders cleanly with 436 events in
+  both themes; 0 page errors. Wave 4 of the `BACKFILL.md` roadmap.
+
 ## Next increments (small, shippable, in rough order)
 
 > **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8
