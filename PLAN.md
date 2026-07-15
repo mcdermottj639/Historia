@@ -57,27 +57,33 @@ events and a featured story — the daily-freshness hook that needs no server.
   game flow, sheets). Live API calls (portraits) unverifiable from the sandbox
   — verify on device.
 
+### v2 — On This Day, Timeline Sort & more (2026-07-15)
+- **📅 On This Day** on Home: Wikimedia Feed API (`selected`), cached per
+  day, seeded pick of 5, tap → image/extract sheet. Hides itself offline.
+  First live-API integration — needs on-device confirmation (sandbox blocked).
+- **⏳ Timeline Sort**: tap 5 events earliest-first; rounds tighten from
+  150-year gaps down to 6; +20/pick, +50 perfect bonus, 3 lives, best + XP.
+- **Event images** in timeline sheets via generalized Wikipedia thumb fetch.
+- **New story**: "The Night the Wall Fell by Accident" (Berlin 1989 —
+  Schabowski's note, Bornholmer Straße, Harald Jäger's call).
+
 ## Next increments (small, shippable, in rough order)
 
-1. **v2 — Timeline Sort** (second game; reuses events) + Home "On This Day"
-   via the Wikimedia Feed API (keyless CORS) with graceful offline hiding.
-2. **v3 — Trivia Lab port**: Sports-Hub engine, history categories (Ancient,
+1. **v3 — Trivia Lab port**: Sports-Hub engine, history categories (Ancient,
    US History, Presidents, World Wars, Explorers, Inventions, Civil Rights,
    **Philadelphia & the Revolution**), ~120 hand-written deep-cut questions,
    seeded Daily Challenge folded into the day-streak, OpenTDB 23/22/20 blend
    (CC BY-SA attribution), misses linking to Learn content.
-3. **v4 — Guess the Era + Who Am I?** (event blurbs with names stripped;
+2. **v4 — Guess the Era + Who Am I?** (event blurbs with names stripped;
    progressive figure clues) + Daily Challenge rotation across game types.
-4. **v5 — richer sheets**: event images via Wikipedia REST summaries, "what
-   else happened this year", related-story links.
-5. **v6 — more stories** toward 10+ (candidates: the Trojan Horse problem,
-   Hannibal's crossing, 1453's cannons, the Philly yellow fever, Gettysburg's
-   Pickett's charge, the Cuban Missile Crisis hour-by-hour, Shackleton,
-   the Berlin Wall's accidental opening).
-6. **v7 — SVG map view**: bundled world map, era-filtered event pins
+3. **v5 — more stories** toward 10+ (candidates: Hannibal's crossing, 1453's
+   cannons, the Philly yellow fever, Gettysburg's Pickett's charge, the Cuban
+   Missile Crisis hour-by-hour, Shackleton) + richer sheets ("what else
+   happened this year", related-story links).
+4. **v6 — SVG map view**: bundled world map, era-filtered event pins
    (coordinates added to events.js at authoring time — World Historical
    Gazetteer/Wikidata as authoring tools only).
-7. **Later**: per-era mastery rings, achievements, figure "collection"
+5. **Later**: per-era mastery rings, achievements, figure "collection"
    unlocks, bank growth (events → 300+, figures → 60+).
 
 ## Data sources (verdicts)

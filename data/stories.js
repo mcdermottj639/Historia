@@ -60,6 +60,32 @@ window.H_STORIES = [
     events: ['ides', 'rubicon', 'augustus'],
     figures: ['caesar', 'augustus'],
   },
+  {
+    id: 'wall89',
+    era: 'coldwar',
+    emoji: '🧱',
+    title: 'The Night the Wall Fell by Accident',
+    kicker: 'Berlin · November 9, 1989',
+    minutes: 4,
+    slides: [
+      { k: '1989', t: 'A wall with a countdown nobody could hear', body: 'For 28 years the Berlin Wall has split a city — families waving across barbed wire, at least 140 dead trying to cross. But 1989 is different: Hungary has opened its border to Austria, tens of thousands of East Germans are fleeing through it, and every Monday, Leipzig fills with marchers chanting “We are the people.”' },
+      { k: 'East Berlin, 6 p.m.', t: 'A politician gets handed a note', body: 'Günter Schabowski, spokesman of East Germany’s ruling party, is about to give a live, televised press conference. Minutes before, he’s handed a draft of new travel regulations — a plan to let citizens apply for exit visas, starting the next day, in an orderly fashion. He hasn’t read it properly. He was on vacation for the discussions.' },
+      { k: '6:53 p.m.', t: 'The question', body: 'Near the end of a numbingly boring hour, Schabowski shuffles his papers and mentions, almost as an afterthought, that citizens will be allowed to travel abroad. The room snaps awake. Italian journalist Riccardo Ehrman presses him: WHEN does this take effect?' },
+      { k: 'Live on television', t: '“Immediately. Without delay.”', body: 'Schabowski scans the note, hesitates, finds nothing about timing that he can decipher — and improvises: “As far as I know… effective immediately, without delay.” The plan said November 10, with visa applications. He has just accidentally opened the border on live TV.' },
+      { k: '8:00 p.m.', t: 'Television makes it true', body: 'West German news leads with a sentence East Berliners can hardly believe: “The GDR has opened its borders.” That’s not quite what the regulation said — but millions of East Germans watch West German TV, and now they’re putting on their coats.' },
+      { k: 'Bornholmer Straße', t: 'The crowd and the colonel', body: 'Thousands mass at the Bornholmer Straße checkpoint chanting “Open the gate!” The senior officer on duty, Harald Jäger, phones his superiors over and over. No one will give him orders — no one dares. He has armed guards, an enormous crowd, and no instructions.' },
+      { k: '11:30 p.m.', t: 'One man decides', body: 'Jäger has spent 25 years guarding this border. Facing the crowd, he makes the call himself: open it. The barrier lifts. There is no paperwork, no stamps — just tens of thousands of people walking, then running, into West Berlin. Other checkpoints follow within the hour.' },
+      { k: 'Midnight', t: 'The party on top of the Wall', body: 'Strangers hand champagne over the barrier. West Berliners pull East Berliners up onto the Wall itself — dancing on the death strip’s edge at the Brandenburg Gate. By morning, people are attacking the concrete with hammers and chisels. They get a nickname: Mauerspechte — “wall woodpeckers.”' },
+      { k: 'Epilogue', t: 'Eleven months', body: 'The Cold War’s most famous symbol fell not to an army but to a botched press conference, a stubborn crowd, and one border guard who chose not to shoot. Less than a year later — October 3, 1990 — Germany reunifies. Chunks of the Wall now sit in museums, schoolyards and living rooms on every continent.' },
+    ],
+    quiz: [
+      { q: 'What did Schabowski say when asked when the new travel rules took effect?', a: '“Immediately, without delay”', w: ['“Starting next month”', '“That is classified”', '“Only for pensioners”'] },
+      { q: 'Which checkpoint opened first, and why?', a: 'Bornholmer Straße — officer Harald Jäger decided himself after no one gave orders', w: ['Checkpoint Charlie — the US Army opened it', 'The Brandenburg Gate — the mayor unlocked it', 'None — the crowd broke through with vehicles'] },
+      { q: 'What was the regulation actually supposed to be?', a: 'Orderly visa applications starting the next day', w: ['Full demolition of the Wall within a week', 'Travel for party members only', 'A one-day holiday opening'] },
+    ],
+    events: ['wallfalls', 'berlinwall', 'ussrend'],
+    figures: [],
+  },
 ];
 
 window.H_STORY_BY_ID = Object.fromEntries(window.H_STORIES.map((s) => [s.id, s]));

@@ -102,6 +102,7 @@ function openEventSheet(ev) {
   const figs = (ev.fig || []).map((id) => window.H_FIG_BY_ID[id]).filter(Boolean);
   const sh = openSheet(`
     <span class="sheet-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>
+    <div class="sheet-img" data-img hidden></div>
     <div class="sheet-year">${fmtYear(ev.y, ev.approx)}</div>
     <h3 class="sheet-title">${esc(ev.title)}</h3>
     <p class="sheet-blurb">${esc(ev.blurb)}</p>
@@ -113,6 +114,10 @@ function openEventSheet(ev) {
     </div>`);
   sh.querySelector('[data-act="tl"]').onclick = () => { closeSheet(); showTab('timeline'); window.Timeline && window.Timeline.focusYear(ev.y, 2); };
   $$('[data-fig]', sh).forEach((b) => (b.onclick = () => openFigureSheet(window.H_FIG_BY_ID[b.dataset.fig])));
+  if (ev.wiki) fetchThumb(ev.wiki).then((url) => {
+    const img = sh.querySelector('[data-img]');
+    if (url && img) { img.hidden = false; img.style.backgroundImage = `url("${url}")`; }
+  });
 }
 
 // Figure detail sheet.
@@ -137,25 +142,27 @@ function openFigureSheet(f) {
   fetchPortrait(f).then((url) => { const face = sh.querySelector('[data-face]'); if (url && face) { face.textContent = ''; face.style.backgroundImage = `url("${url}")`; } });
 }
 
-// --- portraits (Wikipedia REST summary; ACAO:* — browser-direct, no key) ---------
-// Cached in localStorage forever: {title: url} or {title: 0} for known-missing,
-// so offline/blocked environments degrade to the monogram tile silently.
-const portraitInflight = {};
-function fetchPortrait(f) {
-  if (!f || !f.wiki) return Promise.resolve(null);
+// --- Wikipedia thumbnails (REST summary; ACAO:* — browser-direct, no key) --------
+// One cache for figure portraits AND event images, keyed by article title:
+// {title: url} or {title: 0} for known-missing, so offline environments
+// degrade silently (monogram tiles / no image) and never refetch known-misses.
+const thumbInflight = {};
+function fetchThumb(title) {
+  if (!title) return Promise.resolve(null);
   const cache = readJSON(K.PORTRAITS, {});
-  if (Object.prototype.hasOwnProperty.call(cache, f.wiki)) return Promise.resolve(cache[f.wiki] || null);
-  if (portraitInflight[f.wiki]) return portraitInflight[f.wiki];
+  if (Object.prototype.hasOwnProperty.call(cache, title)) return Promise.resolve(cache[title] || null);
+  if (thumbInflight[title]) return thumbInflight[title];
   const ctrl = new AbortController();
   const to = setTimeout(() => ctrl.abort(), 8000);
-  portraitInflight[f.wiki] = fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(f.wiki.replace(/ /g, '_'))}`, { signal: ctrl.signal })
+  thumbInflight[title] = fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replace(/ /g, '_'))}`, { signal: ctrl.signal })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       const url = d && d.thumbnail && d.thumbnail.source ? d.thumbnail.source : 0;
-      const c = readJSON(K.PORTRAITS, {}); c[f.wiki] = url; writeJSON(K.PORTRAITS, c);
+      const c = readJSON(K.PORTRAITS, {}); c[title] = url; writeJSON(K.PORTRAITS, c);
       return url || null;
     })
     .catch(() => null) // network blocked/offline: no cache write, retry next visit
-    .finally(() => { clearTimeout(to); delete portraitInflight[f.wiki]; });
-  return portraitInflight[f.wiki];
+    .finally(() => { clearTimeout(to); delete thumbInflight[title]; });
+  return thumbInflight[title];
 }
+const fetchPortrait = (f) => fetchThumb(f && f.wiki);

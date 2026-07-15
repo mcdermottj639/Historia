@@ -8,7 +8,7 @@
 (function () {
   const GAMES = [
     { k: 'ba', live: 1, emoji: '⚖️', name: 'Before or After', desc: 'Two events. Tap the one that happened first. Three lives — the gaps get cruel.' },
-    { k: 'sort', live: 0, emoji: '⏳', name: 'Timeline Sort', desc: 'Put 5 shuffled events in chronological order. Coming next update.' },
+    { k: 'sort', live: 1, emoji: '⏳', name: 'Timeline Sort', desc: 'Five shuffled events — tap them in chronological order, earliest first. Rounds get tighter.' },
     { k: 'era', live: 0, emoji: '🔮', name: 'Guess the Era', desc: 'Read the scene, name the century. Coming soon.' },
     { k: 'who', live: 0, emoji: '🎭', name: 'Who Am I?', desc: 'Progressive clues about a figure — buzz early for more points. Coming soon.' },
     { k: 'trivia', live: 0, emoji: '🧠', name: 'Trivia Lab', desc: 'The deep-cut hand-written question bank, daily challenge and all. Coming soon.' },
@@ -28,7 +28,10 @@
             ${g.live ? `<div class="g-best">${best[g.k] ? `Best: ${best[g.k]}` : 'New — set a best score'}</div>` : ''}
           </button>`).join('')}
       </div>`;
-    $$('#games-host [data-game]').forEach((b) => (b.onclick = () => { if (b.dataset.game === 'ba') startBA(); }));
+    $$('#games-host [data-game]').forEach((b) => (b.onclick = () => {
+      if (b.dataset.game === 'ba') startBA();
+      if (b.dataset.game === 'sort') startSort();
+    }));
   }
 
   // --- ⚖️ Before or After ----------------------------------------------------
@@ -146,5 +149,120 @@
     $('#ba-back').onclick = renderHub;
   }
 
-  window.Games = { renderHub, startBA };
+  // --- ⏳ Timeline Sort --------------------------------------------------------
+  // Five shuffled events; tap them earliest-first. Each round's minimum year
+  // gap shrinks, so round 1 is a warm-up and round 5+ is for Keepers of Ages.
+  let ts = null; // {round, score, lives, set, nextIdx, mistakes}
+  const ROUND_GAP = [150, 80, 40, 15, 6]; // min pairwise years, by round
+
+  function pickSortSet(minGap) {
+    const evs = window.H_EVENTS;
+    for (let tries = 0; tries < 200; tries++) {
+      const set = shuffleWith(evs, rrng).slice(0, 5);
+      const ys = set.map((e) => e.y).sort((a, b) => a - b);
+      let ok = true;
+      for (let i = 1; i < ys.length; i++) if (ys[i] - ys[i - 1] < minGap) { ok = false; break; }
+      if (ok) return set;
+    }
+    // fallback: force distinct-enough years by spacing picks across the sorted bank
+    const sorted = [...evs].sort((a, b) => a.y - b.y);
+    const step = Math.floor(sorted.length / 5);
+    return [0, 1, 2, 3, 4].map((i) => sorted[i * step + Math.floor(rrng() * step)]);
+  }
+
+  function startSort() {
+    ts = { round: 1, score: 0, lives: 3, set: null, nextIdx: 0, mistakes: 0 };
+    nextSortRound();
+  }
+  function nextSortRound() {
+    const gap = ROUND_GAP[Math.min(ts.round - 1, ROUND_GAP.length - 1)];
+    ts.set = pickSortSet(gap);
+    ts.order = [...ts.set].sort((a, b) => a.y - b.y).map((e) => e.id); // correct id sequence
+    ts.placed = {}; // id -> position (1-based)
+    ts.nextIdx = 0;
+    ts.mistakes = 0;
+    paintSort();
+  }
+
+  function paintSort(banner) {
+    const host = $('#games-host');
+    const roundDone = ts.nextIdx >= ts.order.length;
+    host.innerHTML = `
+      <div class="ba-top">
+        <button class="btn small ghost" id="ts-exit">‹ Games</button>
+        <span class="ba-score">⭐ ${ts.score}</span>
+        <span class="ba-lives">${'❤️'.repeat(ts.lives)}${'🖤'.repeat(Math.max(0, 3 - ts.lives))}</span>
+        <span class="ba-best">Round ${ts.round} · best ${readJSON(K.BEST, {}).sort || 0}</span>
+      </div>
+      <p class="ba-prompt">Tap the events in order — <b>earliest first</b>.</p>
+      <div class="ts-list">
+        ${ts.set.map((ev) => {
+          const era = window.H_ERA_OF_YEAR(ev.y);
+          const pos = ts.placed[ev.id];
+          return `<button class="ts-card ${pos ? 'placed' : ''}" data-ts="${ev.id}" ${pos || roundDone ? 'disabled' : ''}>
+            <span class="ts-slot">${pos ? pos : '·'}</span>
+            <span class="ts-body">
+              <span class="bc-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>
+              <span class="ts-title">${esc(ev.title)}</span>
+            </span>
+            <span class="ts-year">${pos || roundDone ? fmtYear(ev.y, ev.approx) : ''}</span>
+          </button>`;
+        }).join('')}
+      </div>
+      ${banner ? `<div class="ba-after">
+          <div class="ba-verdict ${banner.cls}">${banner.msg}</div>
+          ${roundDone ? `<button class="btn primary" id="ts-next">${ts.lives > 0 ? 'Next round →' : 'See results'}</button>` : ''}
+        </div>` : ''}`;
+    $('#ts-exit').onclick = () => endSort(true);
+    $$('#games-host [data-ts]').forEach((b) => (b.onclick = () => pickSort(b.dataset.ts, b)));
+    if (roundDone && $('#ts-next')) $('#ts-next').onclick = () => (ts.lives > 0 ? (ts.round++, nextSortRound()) : endSort());
+  }
+
+  function pickSort(id, btn) {
+    if (!ts || ts.nextIdx >= ts.order.length) return;
+    if (id === ts.order[ts.nextIdx]) {
+      ts.nextIdx++;
+      ts.placed[id] = ts.nextIdx;
+      ts.score += 20;
+      if (ts.nextIdx >= ts.order.length) {
+        const perfect = ts.mistakes === 0;
+        if (perfect) ts.score += 50;
+        paintSort({ cls: 'ok', msg: perfect ? '🏆 Perfect round · +50 bonus' : '✅ Round clear' });
+      } else paintSort();
+    } else {
+      ts.mistakes++;
+      ts.lives--;
+      if (btn) { btn.classList.add('reveal-wrong'); setTimeout(() => btn.classList.remove('reveal-wrong'), 450); }
+      if (ts.lives <= 0) {
+        // reveal the rest and offer results
+        ts.set.forEach((e) => { if (!ts.placed[e.id]) ts.placed[e.id] = 0; });
+        ts.nextIdx = ts.order.length;
+        paintSort({ cls: 'no', msg: '💔 Out of lives — years revealed' });
+      } else {
+        const fb = $('#games-host .ba-after');
+        if (!fb) paintSort({ cls: 'no', msg: '❌ Not that one — earlier events remain' });
+      }
+    }
+  }
+
+  function endSort(quiet) {
+    const best = readJSON(K.BEST, {});
+    const isBest = ts.score > (best.sort || 0);
+    if (isBest && ts.score > 0) { best.sort = ts.score; writeJSON(K.BEST, best); }
+    if (ts.score > 0) addXP(Math.max(5, Math.round(ts.score / 5)), 'Timeline Sort');
+    if (quiet) { renderHub(); return; }
+    const host = $('#games-host');
+    host.innerHTML = `
+      <div class="ba-over card">
+        <div class="bo-big">${isBest ? '🏆' : ts.score >= 300 ? '🌟' : '⏳'}</div>
+        <h3>${isBest ? 'New best score!' : 'The sands ran out'}</h3>
+        <p class="muted">⭐ ${ts.score} points · reached round ${ts.round}${isBest ? '' : ` · best ${best.sort || 0}`}</p>
+        <button class="btn primary" id="ts-again">Play again</button>
+        <button class="btn ghost" id="ts-back">All games</button>
+      </div>`;
+    $('#ts-again').onclick = startSort;
+    $('#ts-back').onclick = renderHub;
+  }
+
+  window.Games = { renderHub, startBA, startSort };
 })();

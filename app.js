@@ -3,7 +3,7 @@
  * About, service-worker registration. Loaded LAST — data/*, core.js and the
  * feature modules (timeline/story/games/learn) are already on window. */
 
-const APP_VERSION = 'v1';
+const APP_VERSION = 'v2';
 
 // --- tabs ---------------------------------------------------------------------
 const PANELS = ['home', 'timeline', 'stories', 'games', 'learn', 'about'];
@@ -104,10 +104,15 @@ function renderHome() {
       </div>
     </div>
 
+    <div id="home-otd" hidden></div>
+
     <h2 class="section-title">📖 Today’s story</h2>
     <div class="story-grid" id="home-story"></div>
 
     <p class="note" style="margin-top:16px">A new landing year and featured story every day — same for every traveler, seeded by the date. Wisdom, streaks and bests live on this device.</p>`;
+
+  // On This Day — async, cached daily, hides itself when unavailable
+  window.OTD.renderInto('#home-otd');
 
   // wire
   $$('#home-host [data-ev]').forEach((r) => (r.onclick = () => openEventSheet(window.H_EVENTS.find((e) => e.id === r.dataset.ev))));
@@ -135,10 +140,10 @@ function renderAbout() {
   host.innerHTML = `
     <div class="card">
       <p><b>Historia ${APP_VERSION}</b> — a personal history app: a scrubbable
-      Grand Timeline of 5,000 years, cinematic tap-through stories, era guides,
-      a figures gallery and chronology games, with much more on the way
-      (Timeline Sort, Guess the Era, Who Am I?, the deep-cut Trivia Lab, maps,
-      On This Day). Sibling app to
+      Grand Timeline of 5,000 years, cinematic tap-through stories, a daily
+      “On This Day” feed, era guides, a figures gallery and chronology games
+      (Before or After, Timeline Sort), with more on the way — Guess the Era,
+      Who Am I?, the deep-cut Trivia Lab, and maps. Sibling app to
       <a href="https://mcdermottj639.github.io/Sports-Hub/" rel="noopener">Sports-Hub</a>.</p>
       <p class="muted">Pure static app — no backend, no accounts, no tracking. Progress
       (Wisdom, streaks, bests) is saved on this device only. Install it to your
