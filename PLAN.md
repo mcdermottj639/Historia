@@ -101,6 +101,37 @@ events and a featured story — the daily-freshness hook that needs no server.
 - Verified: timeline smooth at all 4 zoom levels in both themes with 279
   events; 0 page errors. Wave 2 of the `BACKFILL.md` roadmap.
 
+### v5 — Grand Timeline rebuilt as scrubber + card deck (2026-07-15)
+- The horizontal zoom-and-cluster strip was replaced with a **draggable
+  scrubber minimap** (era bands + a dot per event + a playhead) synced to a
+  **snap-scrolling deck of big cinematic event cards** — every event a
+  full-width tap target, no more "+N" clusters or px/year zoom levels. Shipped
+  in parallel with the backfill by a separate session; `Timeline.focusYear(y)`
+  keeps the cross-tab deep-link (the `level` argument is gone).
+
+### v6 — The Great Backfill, Wave 3: 1400–1800 depth (2026-07-15)
+- **+76 events (→ 355) and +24 figures (→ 96)**. The two thinnest eras fill
+  out: Renaissance & Discovery jumps 18→57 events, Early Modern 9→43.
+  Coverage: the Renaissance/Reformation/Scientific Revolution (Medici Florence,
+  Brunelleschi, Machiavelli, More, Calvin, Bruno, Vesalius, Kepler, Descartes,
+  Leeuwenhoek), the gunpowder empires (Ottomans under Suleiman — Mohács, both
+  Sieges of Vienna, Lepanto, Sinan; Safavid Shah Abbas & Isfahan; Mughal Babur,
+  Akbar, Shah Jahan's Taj Mahal, Aurangzeb; Guru Nanak), Ming & early Qing
+  China + Japan/Korea (Hongwu, Zheng He's fleets, the Forbidden City, Sejong's
+  Hangul, Nobunaga, Nagashino's guns, Hideyoshi, Yi Sun-sin's turtle ships,
+  Sekigahara, the Edo shogunate, sakoku, Kangxi, the 47 Ronin), the age of
+  exploration told honestly (Tordesillas, Cabral, the Columbian Exchange & its
+  ~90% mortality, the Middle Passage, Kongo's Afonso, Pizarro & Atahualpa,
+  Potosí, 1619 Virginia, Las Casas, the Pueblo Revolt, King Philip's War,
+  Penn's Philadelphia, Salem) and the Enlightenment (Charles I, Hobbes,
+  Versailles, the Glorious Revolution, Locke, Peter & St Petersburg,
+  Montesquieu, Voltaire's Candide, Rousseau, Catherine, Adam Smith, Watt's
+  engine). New figures include Hurrem, Artemisia Gentileschi, Catherine the
+  Great, Émilie du Châtelet, La Malinche and Olaudah Equiano.
+- Authored as v5 in parallel with the timeline rebuild; ships as v6 on top of
+  it. Verified: the new scrubber/card-deck timeline renders cleanly with 355
+  events in both themes; 0 page errors. Wave 3 of the `BACKFILL.md` roadmap.
+
 ## Next increments (small, shippable, in rough order)
 
 > **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8

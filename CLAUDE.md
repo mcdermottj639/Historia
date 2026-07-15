@@ -51,11 +51,11 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   Sports-Hub). New components must use the CSS vars so they theme for free.
 - `data/eras.js` — `H_ERAS`: 9 eras with year ranges, colors, emoji, intros.
   Era of an event is always **derived from its year** (`H_ERA_OF_YEAR`).
-- `data/events.js` — `H_EVENTS` (~279): the master event list
+- `data/events.js` — `H_EVENTS` (~355): the master event list
   `{id, y (neg = BCE), approx?, region, title, blurb, wiki?, fig?}`. **One
   dataset powers the timeline, Before/After, the Time Machine, era pages and
   future games** — grow this and everything gets richer.
-- `data/figures.js` — `H_FIGURES` (~72): `{id, name, born, died, era, region,
+- `data/figures.js` — `H_FIGURES` (~96): `{id, name, born, died, era, region,
   tag, facts[2], wiki}`. Powers the figures gallery + sheets (and the future
   Who Am I?).
 - `data/stories.js` — `H_STORIES`: Story Mode narratives
@@ -117,8 +117,20 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v5**.
+Current version as of this writing: **v6**.
 
+- **v6** — ⛵ The Great Backfill, Wave 3 (1400–1800 depth): +76 events
+  (355 total) and +24 figures (96 total). Renaissance/Reformation/Scientific
+  Revolution (Medici, Machiavelli, Vesalius, Kepler, Descartes), Ottomans/
+  Safavids/Mughals (Suleiman, Mohács, both Sieges of Vienna, Shah Abbas, Babur,
+  Akbar, the Taj Mahal), Ming/Qing China + Japan/Korea (Zheng He, the Forbidden
+  City, Hangul, Nobunaga, Sekigahara, sakoku, Kangxi, the 47 Ronin), the age of
+  exploration + Columbian exchange + Atlantic slave trade told honestly (Kongo's
+  Afonso, the Middle Passage, Potosí, La Malinche, Metacom, Equiano, Penn's
+  Philadelphia) and the Enlightenment (Locke, Voltaire, Rousseau, Montesquieu,
+  Adam Smith, Émilie du Châtelet). Renaissance era 18→57 events, Early Modern
+  9→43. (This wave was authored as v5 in parallel with the timeline rebuild;
+  it ships as v6 on top of it.)
 - **v5** — Grand Timeline rebuilt as a **scrubber + swipeable card deck**: a
   draggable era/event minimap on top synced to a deck of big cinematic event
   cards below. Replaces the old horizontal zoom-and-cluster strip, which was
