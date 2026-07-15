@@ -75,7 +75,7 @@
   function baCard(ev, i, reveal) {
     const era = window.H_ERA_OF_YEAR(ev.y);
     return `<button class="ba-card" data-pick="${i}" ${reveal ? 'disabled' : ''}>
-      <span class="bc-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>
+      ${reveal ? `<span class="bc-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>` : ''}
       <span class="bc-title">${esc(ev.title)}</span>
       <span class="bc-year">${reveal ? fmtYear(ev.y, ev.approx) : '?'}</span>
     </button>`;
@@ -202,7 +202,7 @@
           return `<button class="ts-card ${pos ? 'placed' : ''}" data-ts="${ev.id}" ${pos || roundDone ? 'disabled' : ''}>
             <span class="ts-slot">${pos ? pos : '·'}</span>
             <span class="ts-body">
-              <span class="bc-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>
+              ${pos || roundDone ? `<span class="bc-era" style="background:${era.color}">${era.emoji} ${esc(era.label)}</span>` : ''}
               <span class="ts-title">${esc(ev.title)}</span>
             </span>
             <span class="ts-year">${pos || roundDone ? fmtYear(ev.y, ev.approx) : ''}</span>

@@ -84,8 +84,10 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   year-gap difficulty ramp `gapFloor`, best in `historia:best.ba`) +
   **⏳ Timeline Sort** (tap 5 events earliest-first; per-round min-gap ramp
   `ROUND_GAP`, +20/pick, +50 perfect-round bonus, shared 3 lives, best in
-  `historia:best.sort`). Roadmap tiles for Guess the Era / Who Am I? /
-  Trivia Lab shown disabled — replace a tile with a real game when it lands.
+  `historia:best.sort`). Both are chronology games, so the **era pill and year
+  stay hidden until the answer is revealed** (a face-up era would spoil the
+  guess). Roadmap tiles for Guess the Era / Who Am I? / Trivia Lab shown
+  disabled — replace a tile with a real game when it lands.
 - `learn.js` — era accordions (intro, people chips, event rows) + figures
   gallery with async portrait fill-in.
 - `otd.js` — 📅 On This Day (Home section): Wikimedia Feed API `selected`
@@ -117,8 +119,13 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v10**.
+Current version as of this writing: **v11**.
 
+- **v11** — 🎮 Games fix: the **era badge is no longer shown before the
+  answer** in Before or After and Timeline Sort. Both games ask about
+  chronology, so naming the era ("⚔️ World Wars") on the face-down card leaked
+  the very thing the player is guessing. The era pill (and the year) now appear
+  only on reveal, as a post-answer reward.
 - **v10** — ⚔️ The Great Backfill, Wave 5 (1900–1945): +80 events (516 total)
   and +20 figures (142 total). The pivotal 31 years told in depth: WWI (the
   Marne, the trenches, Gallipoli, the Armenian genocide, Verdun, the Arab
