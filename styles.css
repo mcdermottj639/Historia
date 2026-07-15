@@ -152,13 +152,14 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 /* ==========================================================================
    GRAND TIMELINE
    ========================================================================== */
-/* Scrubber (map) + card deck (detail). */
-.tl-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.tl-now { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* Scrubber (map) + event list (detail). */
+.tl-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.tl-now { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: var(--text); min-width: 0; }
 .tl-now-d { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
-.tl-now b { color: var(--accent); }
-.tl-nav { margin-left: auto; display: flex; gap: 6px; flex: 0 0 auto; }
-.tl-navbtn { min-height: 40px; min-width: 44px; padding: 4px 12px; font-size: 20px; line-height: 1; }
+.tl-range { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; font-size: 13px; }
+.tl-span { margin-left: auto; display: flex; gap: 6px; flex: 0 0 auto; }
+.tl-spanbtn { min-height: 38px; padding: 7px 13px; font-size: 13px; }
+.tl-spanbtn:disabled { opacity: .4; cursor: default; }
 
 .tl-scrub { position: relative; height: 56px; border: 1px solid var(--line); border-radius: 12px;
   background: var(--card-2); overflow: hidden; margin-bottom: 8px; cursor: grab; touch-action: none; }
@@ -166,26 +167,23 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 .tl-band { position: absolute; top: 0; bottom: 0; border: none; padding: 0; opacity: .5; cursor: pointer; }
 .tl-band:hover { opacity: .8; }
 .tl-sdot { position: absolute; top: 50%; width: 4px; height: 4px; border-radius: 50%; transform: translate(-50%, -50%); opacity: .95; pointer-events: none; }
-.tl-play { position: absolute; top: -2px; bottom: -2px; width: 3px; background: var(--accent); transform: translateX(-50%);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bg) 70%, transparent); pointer-events: none; z-index: 3; border-radius: 3px; }
-.tl-play::before { content: ""; position: absolute; top: -5px; left: 50%; width: 13px; height: 13px; border-radius: 50%;
-  transform: translateX(-50%); background: var(--accent); box-shadow: 0 0 0 2px var(--card-2); }
+/* the window: a bright bordered slice; everything outside is dimmed by the
+   huge spread shadow (clipped to the scrubber by its overflow:hidden). */
+.tl-win { position: absolute; top: -1px; bottom: -1px; border: 2.5px solid var(--accent); border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); pointer-events: none; z-index: 3;
+  box-shadow: 0 0 0 9999px color-mix(in srgb, var(--bg) 55%, transparent); }
 
 .tl-hint { font-size: 11.5px; color: var(--muted); margin: 0 2px 12px; }
 
-.tl-track { display: flex; gap: 14px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; padding: 2px 2px 14px; position: relative; }
-.tl-track::-webkit-scrollbar { height: 8px; }
-.tl-track::-webkit-scrollbar-thumb { background: var(--card-2); border-radius: 99px; }
-.tl-card { scroll-snap-align: center; flex: 0 0 86%; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-  background: var(--card-2); border: 1px solid var(--line); border-top: 5px solid var(--ec); border-radius: 16px;
-  padding: 20px 20px 22px; min-height: 330px; text-align: left; cursor: pointer; color: var(--text); }
-.tl-card:hover { border-color: var(--accent); }
-.tl-card-era { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; color: var(--muted); }
-.tl-card-year { font-size: 44px; font-weight: 800; font-variant-numeric: tabular-nums; font-family: var(--serif); line-height: 1; color: var(--ec); }
-.tl-card-title { font-size: 26px; font-weight: 800; font-family: var(--serif); line-height: 1.15; }
-.tl-card-blurb { font-size: 16px; line-height: 1.5; color: var(--text); }
-.tl-card-more { margin-top: auto; font-size: 14px; font-weight: 700; color: var(--accent); }
+.tl-list { display: flex; flex-direction: column; gap: 8px; }
+.tl-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; color: var(--text);
+  background: var(--card-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px; cursor: pointer; min-height: 56px; }
+.tl-row:hover { border-color: var(--accent); }
+.tl-row-dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
+.tl-row-year { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 66px; font-size: 14px; }
+.tl-row-title { flex: 1; font-size: 15px; line-height: 1.3; }
+.tl-row-chev { color: var(--muted); font-size: 22px; flex: 0 0 auto; }
+.tl-empty { color: var(--muted); text-align: center; padding: 24px 12px; }
 
 /* event bottom sheet */
 .sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 90; animation: fade .2s ease; }

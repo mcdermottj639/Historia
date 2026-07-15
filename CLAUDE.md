@@ -67,16 +67,16 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   and `openFigureSheet`), and `fetchThumb(title)` (Wikipedia REST summary
   thumbnails for BOTH figures and events, one localStorage cache, silent
   fallback offline; `fetchPortrait(fig)` is a thin wrapper).
-- `timeline.js` — the Grand Timeline, rebuilt v3 as a **scrubber + card deck**
-  (the old zoom-and-cluster strip was too busy and too fiddly to tap). Top: a
-  fixed-width **scrubber minimap** (`.tl-scrub`, positioned in %) — era bands +
-  a dot per event + a draggable **playhead**; drag it or tap an era band to
-  leap anywhere. Below: a snap-scrolling **card deck** (`.tl-track`) of every
-  event as a big cinematic card (year · title · blurb), full-width tap targets,
-  iOS momentum. The two sync (drag scrubber → deck snaps to that year; swipe
-  deck → playhead + "you are here" readout follow); `‹ ›` step buttons for
-  desktop. `window.Timeline.focusYear(y)` is the cross-tab API (level arg
-  dropped — there are no zoom levels anymore).
+- `timeline.js` — the Grand Timeline, a **scrubber + event list** (v9; the
+  earlier dot-strip and card-deck were too busy / too fiddly to tap). Top: a
+  fixed **scrubber minimap** (`.tl-scrub`, positioned in %) — era bands + a dot
+  per event + a translucent **window** (`.tl-win`) showing the slice in view;
+  drag anywhere to travel, tap an era band to jump. Below: the events inside
+  that window as big full-width **rows** (`.tl-row`: era dot · year · title ·
+  chevron) — tap to open the sheet. **Wider/Closer** grow/shrink the window
+  (`SPANS`, 60 years → whole span). Only the window box + list rebuild on
+  scrub (the ~279-dot scrubber is built once). `window.Timeline.focusYear(y)`
+  centres the window on a year (cross-tab API; no zoom levels).
 - `story.js` — Story Mode player (fixed full-screen overlay, progress bars,
   tap right/left-third nav, 3-question quiz, XP payout; replays pay a token
   amount so it can't be farmed). `window.Story.renderShelf()/.open(id)`.
@@ -117,8 +117,13 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v8**.
+Current version as of this writing: **v9**.
 
+- **v9** — Grand Timeline reworked from the v5 card deck to a **scrubber +
+  event list** (owner preferred it): the same draggable era/event minimap on
+  top, now with a translucent window, feeding a calm vertical list of big
+  full-width event rows below. Easier to read and to tap than the swipe deck;
+  Wider/Closer resize the window.
 - **v8** — 🗽 The Great Backfill, Wave 4 (1750–1914 dense pass): +81 events
   (436 total) and +26 figures (122 total — the 120 figure goal is met). A dense
   US thread (Revolution deep cuts, the early republic, the antebellum slavery

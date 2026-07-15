@@ -1,58 +1,71 @@
 'use strict';
-/* Historia — the Grand Timeline. A two-part instrument for travelling 5,000
- * years without the old "wall of tiny dots" problem:
+/* Historia — the Grand Timeline. A map + list, built so it's easy to read and
+ * easy to tap on a phone (the old dot-strip was neither):
  *
- *  1. SCRUBBER (top) — a fixed minimap of the whole span: colored era bands, a
- *     dot for every event, and a playhead marking where you are. Drag it (or
- *     tap an era) to leap anywhere instantly; it's the map.
- *  2. CARD DECK (below) — every event as a big, cinematic, swipeable card
- *     (year · title · one-sentence blurb). Full-width tap targets, snap
- *     scrolling, momentum on iOS; it's the detail.
+ *  1. SCRUBBER (top) — a fixed minimap of the whole 5,000 years: colored era
+ *     bands, a dot for every event, and a translucent WINDOW showing the slice
+ *     you're viewing. Drag anywhere on it to travel; tap an era to jump.
+ *  2. EVENT LIST (below) — the events inside that window as big full-width
+ *     rows (year · title · era dot). Tap a row to open it. "Wider / Closer"
+ *     grows or shrinks the window (60 years → the whole span).
  *
- * The two stay in sync: dragging the scrubber snaps the deck to that year;
- * swiping the deck slides the playhead and updates the "you are here" readout.
- * window.Timeline.focusYear(y) is the cross-tab API (Home/Stories deep-links). */
+ * window.Timeline.focusYear(y) centres the window on a year (Home/Stories
+ * deep-links). One dataset (H_EVENTS) drives it, so the backfill just shows up. */
 
 (function () {
   const MIN_Y = -3200, MAX_Y = 2040;
+  const SPANS = [60, 150, 400, 1000, MAX_Y - MIN_Y]; // window widths in years
+  let center = 1950, spanIdx = 0;
+
   const pct = (y) => Math.max(0, Math.min(100, ((y - MIN_Y) / (MAX_Y - MIN_Y)) * 100));
-  const evs = () => [...window.H_EVENTS].sort((a, b) => a.y - b.y);
-  const nearestTo = (y, list) => list.reduce((b, e) => Math.abs(e.y - y) < Math.abs(b.y - y) ? e : b, list[0]);
+  const clampCenter = (c, span) => Math.max(MIN_Y + span / 2, Math.min(MAX_Y - span / 2, c));
+  const sorted = () => [...window.H_EVENTS].sort((a, b) => a.y - b.y);
 
-  let raf = 0;
+  function bounds() {
+    const span = SPANS[spanIdx];
+    center = clampCenter(center, span);
+    return { start: Math.round(center - span / 2), end: Math.round(center + span / 2), span };
+  }
 
-  function setReadout(year) {
-    const era = window.H_ERA_OF_YEAR(Math.round(year));
+  // rebuild only the parts that change as you scrub (cheap): readout, window
+  // box, span buttons and the list. The 279-dot scrubber is built once.
+  function refresh() {
+    const { start, end } = bounds();
+    const era = window.H_ERA_OF_YEAR(Math.round(center));
+    const inWin = sorted().filter((e) => e.y >= start && e.y <= end);
+
     const now = $('#tl-now');
-    if (now) now.innerHTML = `<span class="tl-now-d" style="background:${era.color}"></span>${era.emoji} ${esc(era.label)} · <b>${fmtYear(Math.round(year))}</b>`;
-    const play = $('#tl-play');
-    if (play) play.style.left = pct(year) + '%';
-  }
+    if (now) now.innerHTML = `<span class="tl-now-d" style="background:${era.color}"></span>${era.emoji} ${esc(era.label)}`;
+    const range = $('#tl-range');
+    if (range) range.textContent = `${fmtYear(start)} – ${fmtYear(end)}`;
 
-  function centeredCard() {
-    const track = $('#tl-track'); if (!track) return null;
-    const mid = track.scrollLeft + track.clientWidth / 2;
-    let best = null, bd = Infinity;
-    for (const el of $$('#tl-track .tl-card')) {
-      const cx = el.offsetLeft + el.offsetWidth / 2;
-      const d = Math.abs(cx - mid);
-      if (d < bd) { bd = d; best = el; }
+    const win = $('#tl-win');
+    if (win) { win.style.left = pct(start) + '%'; win.style.width = (pct(end) - pct(start)) + '%'; }
+
+    const wider = $('#tl-wider'), closer = $('#tl-closer');
+    if (wider) wider.disabled = spanIdx === SPANS.length - 1;
+    if (closer) closer.disabled = spanIdx === 0;
+
+    const list = $('#tl-list');
+    if (list) {
+      list.innerHTML = inWin.length
+        ? inWin.map((e) => {
+            const er = window.H_ERA_OF_YEAR(e.y);
+            return `<button class="tl-row" data-ev="${e.id}">
+              <span class="tl-row-dot" style="background:${er.color}"></span>
+              <span class="tl-row-year">${fmtYear(e.y, e.approx)}</span>
+              <span class="tl-row-title">${esc(e.title)}</span>
+              <span class="tl-row-chev">›</span>
+            </button>`;
+          }).join('')
+        : `<p class="tl-empty">No events in this ${end - start}-year window — tap <b>Wider</b> to zoom out.</p>`;
+      $$('#tl-list [data-ev]').forEach((b) => (b.onclick = () => openEventSheet(window.H_EVENTS.find((e) => e.id === b.dataset.ev))));
     }
-    return best;
-  }
-  function centerCard(el, behavior) {
-    const track = $('#tl-track'); if (!track || !el) return;
-    const left = el.offsetLeft - (track.clientWidth - el.offsetWidth) / 2;
-    track.scrollTo({ left, behavior: behavior || 'auto' });
-  }
-  function scrollToYear(y, behavior) {
-    const el = $(`#tl-track .tl-card[data-y="${nearestTo(y, evs()).y}"]`);
-    centerCard(el, behavior);
   }
 
-  function render(centerYear) {
+  function render() {
     const host = $('#timeline-host'); if (!host) return;
-    const list = evs();
+    const list = sorted();
 
     const bands = window.H_ERAS.map((e) => {
       const l = pct(Math.max(e.from, MIN_Y)), r = pct(Math.min(e.to, MAX_Y));
@@ -60,57 +73,30 @@
     }).join('');
     const dots = list.map((e) => `<span class="tl-sdot" style="left:${pct(e.y)}%;background:${window.H_ERA_OF_YEAR(e.y).color}"></span>`).join('');
 
-    const cards = list.map((e) => {
-      const er = window.H_ERA_OF_YEAR(e.y);
-      return `<button class="tl-card" data-ev="${e.id}" data-y="${e.y}" style="--ec:${er.color}">
-        <span class="tl-card-era"><span class="tl-now-d" style="background:${er.color}"></span>${er.emoji} ${esc(er.label)}</span>
-        <span class="tl-card-year">${fmtYear(e.y, e.approx)}</span>
-        <span class="tl-card-title">${esc(e.title)}</span>
-        <span class="tl-card-blurb">${esc(e.blurb || '')}</span>
-        <span class="tl-card-more">Open ›</span>
-      </button>`;
-    }).join('');
-
     host.innerHTML = `
       <div class="tl-head">
         <span class="tl-now" id="tl-now"></span>
-        <span class="tl-nav">
-          <button class="btn tl-navbtn" id="tl-prev" aria-label="Previous event">‹</button>
-          <button class="btn tl-navbtn" id="tl-next" aria-label="Next event">›</button>
+        <span class="tl-range" id="tl-range"></span>
+        <span class="tl-span">
+          <button class="btn tl-spanbtn" id="tl-wider">Wider</button>
+          <button class="btn tl-spanbtn" id="tl-closer">Closer</button>
         </span>
       </div>
       <div class="tl-scrub" id="tl-scrub" title="Drag to travel">
         ${bands}${dots}
-        <div class="tl-play" id="tl-play"></div>
+        <div class="tl-win" id="tl-win"></div>
       </div>
-      <p class="tl-hint">Drag the bar to travel 5,000 years · swipe the cards · tap a card to open it. ${window.H_EVENTS.length} events and counting.</p>
-      <div class="tl-track" id="tl-track">${cards}</div>`;
+      <p class="tl-hint">Drag the bar to travel 5,000 years · tap an event to open it. ${window.H_EVENTS.length} events and counting.</p>
+      <div class="tl-list" id="tl-list"></div>`;
 
-    // open an event
-    $$('#timeline-host .tl-card').forEach((b) => (b.onclick = () => openEventSheet(window.H_EVENTS.find((e) => e.id === b.dataset.ev))));
-    // era band → jump to that era's first event
-    $$('#timeline-host .tl-band').forEach((b) => (b.onclick = () => {
+    $('#tl-wider').onclick = () => { if (spanIdx < SPANS.length - 1) { spanIdx++; refresh(); } };
+    $('#tl-closer').onclick = () => { if (spanIdx > 0) { spanIdx--; refresh(); } };
+    $$('#timeline-host .tl-band').forEach((b) => (b.onclick = (ev) => {
+      ev.stopPropagation();
       const era = window.H_ERA_BY_KEY[b.dataset.jump];
-      const first = list.find((e) => e.y >= era.from) || list[list.length - 1];
-      centerCard($(`#tl-track .tl-card[data-y="${first.y}"]`), 'smooth');
+      center = (era.from + Math.min(era.to, MAX_Y)) / 2; refresh();
     }));
-    // prev / next (desktop-friendly)
-    const step = (dir) => {
-      const cur = centeredCard(); if (!cur) return;
-      const sib = dir < 0 ? cur.previousElementSibling : cur.nextElementSibling;
-      if (sib && sib.classList.contains('tl-card')) centerCard(sib, 'smooth');
-    };
-    $('#tl-prev').onclick = () => step(-1);
-    $('#tl-next').onclick = () => step(1);
 
-    // deck scroll → move playhead + readout
-    const track = $('#tl-track');
-    track.addEventListener('scroll', () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; const c = centeredCard(); if (c) setReadout(+c.dataset.y); });
-    });
-
-    // scrubber drag → snap the deck to that year
     const scrub = $('#tl-scrub');
     const yearAt = (clientX) => {
       const r = scrub.getBoundingClientRect();
@@ -118,25 +104,20 @@
       return MIN_Y + f * (MAX_Y - MIN_Y);
     };
     let dragging = false;
-    const drag = (x) => { const y = yearAt(x); setReadout(y); scrollToYear(y, 'auto'); };
+    const move = (x) => { center = clampCenter(yearAt(x), SPANS[spanIdx]); refresh(); };
     scrub.addEventListener('pointerdown', (e) => {
-      // let taps on an era band do their jump; bare-track drags scrub
       dragging = true; scrub.setPointerCapture(e.pointerId);
-      if (!e.target.classList.contains('tl-band')) drag(e.clientX);
+      if (!e.target.classList.contains('tl-band')) move(e.clientX);
     });
-    scrub.addEventListener('pointermove', (e) => { if (dragging) drag(e.clientX); });
+    scrub.addEventListener('pointermove', (e) => { if (dragging) move(e.clientX); });
     scrub.addEventListener('pointerup', () => { dragging = false; });
     scrub.addEventListener('pointercancel', () => { dragging = false; });
 
-    // land on the anchor year
-    requestAnimationFrame(() => {
-      scrollToYear(centerYear != null ? centerYear : 1969, 'auto');
-      setReadout(centerYear != null ? centerYear : 1969);
-    });
+    refresh();
   }
 
   window.Timeline = {
-    render: () => render(1969),
-    focusYear: (y) => { render(y); },
+    render: () => { center = 1950; spanIdx = 0; render(); },
+    focusYear: (y) => { center = y; render(); },
   };
 })();
