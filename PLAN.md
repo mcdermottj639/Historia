@@ -156,6 +156,34 @@ events and a featured story — the daily-freshness hook that needs no server.
   Verified: the scrubber/card-deck timeline renders cleanly with 436 events in
   both themes; 0 page errors. Wave 4 of the `BACKFILL.md` roadmap.
 
+### v9 — Grand Timeline reworked as scrubber + event list (2026-07-15)
+- The swipeable card deck became a **draggable scrubber minimap feeding a calm
+  vertical list** of big full-width event rows, with a translucent window and
+  Wider/Closer controls to resize the slice in view. Easier to read and tap
+  than the deck. Shipped by a separate session in parallel with the backfill.
+
+### v10 — The Great Backfill, Wave 5: 1900–1945 (2026-07-15)
+- **+80 events (→ 516) and +20 figures (→ 142)**. The pivotal 31 years in
+  depth: World War I (the Marne, the trenches, Gallipoli, the Armenian
+  genocide, Verdun, the Arab Revolt, Sykes–Picot, Balfour, the Romanovs,
+  Versailles), the interwar rise of the dictators (Mussolini, Weimar
+  hyperinflation, Stalin's Five-Year Plans and Great Purge, the Holodomor,
+  Gandhi's Salt March, Mao's Long March, Guernica, Amelia Earhart), World War
+  II in Europe (Munich, Dunkirk, Barbarossa, the siege of Leningrad, Bletchley
+  Park, El Alamein, the Warsaw Ghetto, the liberation of Paris, Yalta, the
+  fall of Berlin), the Pacific war + the Holocaust told with care (Nanjing,
+  Kristallnacht, Midway, the Wannsee Conference, Auschwitz, Iwo Jima, the
+  liberation of the camps) and the usually-skipped edges — wartime science
+  (the 1919 eclipse, Colossus, the Trinity test), the home front (Rosie, the
+  Tuskegee Airmen, the Navajo Code Talkers, internment) and the global South
+  (colonial armies, the Bengal famine, Quit India). New figures span Lenin,
+  Atatürk, Edith Cavell, Stalin, Mussolini, Mao, Turing, Rommel, Zhukov, de
+  Gaulle, Anne Frank, Chiune Sugihara, Oppenheimer, Frida Kahlo and Subhas
+  Chandra Bose.
+- Authored as v9 in parallel with the timeline rework; ships as v10 on top.
+  Verified: the scrubber/event-list timeline renders cleanly with 516 events in
+  both themes; 0 page errors. Wave 5 of the `BACKFILL.md` roadmap.
+
 ## Next increments (small, shippable, in rough order)
 
 > **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8

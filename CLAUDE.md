@@ -51,11 +51,11 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   Sports-Hub). New components must use the CSS vars so they theme for free.
 - `data/eras.js` — `H_ERAS`: 9 eras with year ranges, colors, emoji, intros.
   Era of an event is always **derived from its year** (`H_ERA_OF_YEAR`).
-- `data/events.js` — `H_EVENTS` (~436): the master event list
+- `data/events.js` — `H_EVENTS` (~516): the master event list
   `{id, y (neg = BCE), approx?, region, title, blurb, wiki?, fig?}`. **One
   dataset powers the timeline, Before/After, the Time Machine, era pages and
   future games** — grow this and everything gets richer.
-- `data/figures.js` — `H_FIGURES` (~122): `{id, name, born, died, era, region,
+- `data/figures.js` — `H_FIGURES` (~142): `{id, name, born, died, era, region,
   tag, facts[2], wiki}`. Powers the figures gallery + sheets (and the future
   Who Am I?).
 - `data/stories.js` — `H_STORIES`: Story Mode narratives
@@ -117,8 +117,24 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v9**.
+Current version as of this writing: **v10**.
 
+- **v10** — ⚔️ The Great Backfill, Wave 5 (1900–1945): +80 events (516 total)
+  and +20 figures (142 total). The pivotal 31 years told in depth: WWI (the
+  Marne, the trenches, Gallipoli, the Armenian genocide, Verdun, the Arab
+  Revolt, Sykes–Picot, Balfour, the Romanovs, Versailles), the interwar rise
+  of the dictators (Mussolini's march, Weimar's wheelbarrows, Stalin's plans
+  and purges, the Holodomor, Gandhi's Salt March, Mao's Long March, Guernica,
+  Earhart), WWII in Europe (Munich, Dunkirk, Barbarossa, Leningrad, Bletchley,
+  El Alamein, the Warsaw Ghetto, the liberation of Paris, Yalta, the fall of
+  Berlin), WWII in the Pacific + the Holocaust told with care (Nanjing,
+  Kristallnacht, Midway, Wannsee, Auschwitz, Iwo Jima, the camps' liberation)
+  and the usually-skipped edges — wartime science (the eclipse that proved
+  Einstein, Colossus, the Trinity test), the home front (Rosie, the Tuskegee
+  Airmen, the Navajo Code Talkers, internment) and the global South (colonial
+  armies, the Bengal famine, Quit India). New figures: Lenin, Atatürk, Edith
+  Cavell, Stalin, Mussolini, Mao, Turing, Rommel, Zhukov, de Gaulle, Anne
+  Frank, Sugihara, Oppenheimer, Frida Kahlo, Subhas Chandra Bose and more.
 - **v9** — Grand Timeline reworked from the v5 card deck to a **scrubber +
   event list** (owner preferred it): the same draggable era/event minimap on
   top, now with a translucent window, feeding a calm vertical list of big
