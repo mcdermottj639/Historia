@@ -3,7 +3,7 @@
  * About, service-worker registration. Loaded LAST — data/*, core.js and the
  * feature modules (timeline/story/games/learn) are already on window. */
 
-const APP_VERSION = 'v4';
+const APP_VERSION = 'v5';
 
 // --- tabs ---------------------------------------------------------------------
 const PANELS = ['home', 'timeline', 'stories', 'games', 'learn', 'about'];

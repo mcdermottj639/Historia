@@ -67,11 +67,16 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
   and `openFigureSheet`), and `fetchThumb(title)` (Wikipedia REST summary
   thumbnails for BOTH figures and events, one localStorage cache, silent
   fallback offline; `fetchPortrait(fig)` is a thin wrapper).
-- `timeline.js` — the Grand Timeline. Native horizontal scroll (free iOS
-  momentum); zoom presets `LEVELS` = px/year each with a **marker mode**
-  (`dot` → `year` → `full` labels as you zoom); events group into fixed-width
-  buckets → "+N" cluster pills that zoom in on tap; era bands are clickable.
-  `window.Timeline.focusYear(y, level)` is the cross-tab API.
+- `timeline.js` — the Grand Timeline, rebuilt v3 as a **scrubber + card deck**
+  (the old zoom-and-cluster strip was too busy and too fiddly to tap). Top: a
+  fixed-width **scrubber minimap** (`.tl-scrub`, positioned in %) — era bands +
+  a dot per event + a draggable **playhead**; drag it or tap an era band to
+  leap anywhere. Below: a snap-scrolling **card deck** (`.tl-track`) of every
+  event as a big cinematic card (year · title · blurb), full-width tap targets,
+  iOS momentum. The two sync (drag scrubber → deck snaps to that year; swipe
+  deck → playhead + "you are here" readout follow); `‹ ›` step buttons for
+  desktop. `window.Timeline.focusYear(y)` is the cross-tab API (level arg
+  dropped — there are no zoom levels anymore).
 - `story.js` — Story Mode player (fixed full-screen overlay, progress bars,
   tap right/left-third nav, 3-question quiz, XP payout; replays pay a token
   amount so it can't be farmed). `window.Story.renderShelf()/.open(id)`.
@@ -112,8 +117,13 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v4**.
+Current version as of this writing: **v5**.
 
+- **v5** — Grand Timeline rebuilt as a **scrubber + swipeable card deck**: a
+  draggable era/event minimap on top synced to a deck of big cinematic event
+  cards below. Replaces the old horizontal zoom-and-cluster strip, which was
+  visually busy and hard to tap precisely on a phone. Every event is now a
+  full-width tap target; the "+N" clusters and px/year zoom levels are gone.
 - **v4** — 🏰 The Great Backfill, Wave 2 (Middle Ages worldwide): +73 events
   (279 total) and +21 figures (72 total). Byzantium & the Islamic Golden Age
   (Hagia Sophia, Baghdad, al-Khwarizmi, Ibn Sina, Saladin, the Mongol sack of

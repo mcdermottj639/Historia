@@ -152,49 +152,40 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 /* ==========================================================================
    GRAND TIMELINE
    ========================================================================== */
-.tl-wrap { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); overflow: hidden; }
-.tl-toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-.tl-now { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.tl-now .dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
+/* Scrubber (map) + card deck (detail). */
+.tl-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.tl-now { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tl-now-d { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
 .tl-now b { color: var(--accent); }
-.tl-zoom { display: flex; gap: 4px; margin-left: auto; flex: 0 0 auto; }
-.tl-zoom .btn { min-height: 36px; padding: 4px 13px; font-size: 17px; }
-.tl-jumps { gap: 5px; padding: 8px 12px; margin: 0; border-bottom: 1px solid var(--line); overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
-.tl-jumps .chip { padding: 5px 9px; font-size: 13px; flex: 0 0 auto; }
-.tl-hint { font-size: 11.5px; color: var(--muted); padding: 8px 12px 2px; }
-.tl-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; position: relative; }
-.tl-scroll::-webkit-scrollbar { height: 8px; }
-.tl-scroll::-webkit-scrollbar-thumb { background: var(--card-2); border-radius: 99px; }
-/* fixed center guide line so the "you are here" readout has a visible anchor.
-   Sits in .tl-stage (sibling of the scroller) so it stays put as content scrolls. */
-.tl-stage { position: relative; }
-.tl-crosshair { position: absolute; top: 0; bottom: 8px; left: 50%; width: 1px; z-index: 3; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent) 30%, color-mix(in srgb, var(--accent) 55%, transparent) 70%, transparent); }
-.tl-inner { position: relative; height: 332px; }
+.tl-nav { margin-left: auto; display: flex; gap: 6px; flex: 0 0 auto; }
+.tl-navbtn { min-height: 40px; min-width: 44px; padding: 4px 12px; font-size: 20px; line-height: 1; }
 
-.tl-ruler { position: absolute; top: 0; left: 0; right: 0; height: 30px; }
-.tl-tick { position: absolute; top: 0; height: 100%; border-left: 1px solid var(--line); padding: 4px 0 0 5px; font-size: 10.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tl-scrub { position: relative; height: 56px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--card-2); overflow: hidden; margin-bottom: 8px; cursor: grab; touch-action: none; }
+.tl-scrub:active { cursor: grabbing; }
+.tl-band { position: absolute; top: 0; bottom: 0; border: none; padding: 0; opacity: .5; cursor: pointer; }
+.tl-band:hover { opacity: .8; }
+.tl-sdot { position: absolute; top: 50%; width: 4px; height: 4px; border-radius: 50%; transform: translate(-50%, -50%); opacity: .95; pointer-events: none; }
+.tl-play { position: absolute; top: -2px; bottom: -2px; width: 3px; background: var(--accent); transform: translateX(-50%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bg) 70%, transparent); pointer-events: none; z-index: 3; border-radius: 3px; }
+.tl-play::before { content: ""; position: absolute; top: -5px; left: 50%; width: 13px; height: 13px; border-radius: 50%;
+  transform: translateX(-50%); background: var(--accent); box-shadow: 0 0 0 2px var(--card-2); }
 
-.tl-bands { position: absolute; top: 30px; left: 0; right: 0; height: 44px; }
-.tl-band { position: absolute; top: 0; height: 100%; opacity: .92; display: flex; align-items: center; overflow: hidden; cursor: pointer; border: none; padding: 0; }
-.tl-band-label { font-size: 11px; font-weight: 800; letter-spacing: .5px; color: rgba(0,0,0,.72); padding: 0 10px; white-space: nowrap; position: sticky; left: 0; }
+.tl-hint { font-size: 11.5px; color: var(--muted); margin: 0 2px 12px; }
 
-.tl-events { position: absolute; top: 74px; bottom: 0; left: 0; right: 0; }
-.tl-ev { position: absolute; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; cursor: pointer; background: none; border: none; color: var(--text); padding: 0; width: 118px; }
-.tl-ev .ev-dot { width: 13px; height: 13px; border-radius: 50%; border: 2.5px solid var(--bg); box-shadow: 0 0 0 1.5px var(--line); flex: 0 0 auto; }
-.tl-ev .ev-stem { width: 1.5px; background: var(--line); flex: 0 0 auto; }
-.tl-ev .ev-label { font-size: 11px; line-height: 1.22; text-align: center; max-height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.tl-ev .ev-year { font-size: 10px; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
-.tl-ev:hover .ev-label, .tl-ev:focus .ev-label { color: var(--accent); }
-.tl-ev.tl-ev-dot { width: 26px; padding: 6px 0; } /* wide zoom: dot-only markers, generous tap area */
-.tl-ev.tl-ev-dot .ev-dot { width: 15px; height: 15px; }
-.tl-ev.tl-ev-year { width: 74px; }
-.tl-cluster {
-  position: absolute; transform: translateX(-50%); cursor: pointer; border: none;
-  background: var(--card-2); color: var(--text); border: 1.5px solid var(--line);
-  border-radius: 999px; min-width: 34px; height: 34px; font-weight: 800; font-size: 12.5px;
-  display: flex; align-items: center; justify-content: center; padding: 0 8px;
-}
-.tl-cluster:hover { border-color: var(--accent); }
+.tl-track { display: flex; gap: 14px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; padding: 2px 2px 14px; position: relative; }
+.tl-track::-webkit-scrollbar { height: 8px; }
+.tl-track::-webkit-scrollbar-thumb { background: var(--card-2); border-radius: 99px; }
+.tl-card { scroll-snap-align: center; flex: 0 0 86%; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  background: var(--card-2); border: 1px solid var(--line); border-top: 5px solid var(--ec); border-radius: 16px;
+  padding: 20px 20px 22px; min-height: 330px; text-align: left; cursor: pointer; color: var(--text); }
+.tl-card:hover { border-color: var(--accent); }
+.tl-card-era { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; color: var(--muted); }
+.tl-card-year { font-size: 44px; font-weight: 800; font-variant-numeric: tabular-nums; font-family: var(--serif); line-height: 1; color: var(--ec); }
+.tl-card-title { font-size: 26px; font-weight: 800; font-family: var(--serif); line-height: 1.15; }
+.tl-card-blurb { font-size: 16px; line-height: 1.5; color: var(--text); }
+.tl-card-more { margin-top: auto; font-size: 14px; font-weight: 700; color: var(--accent); }
 
 /* event bottom sheet */
 .sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 90; animation: fade .2s ease; }
@@ -409,7 +400,6 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 :root[data-theme="light"] .hero-sub { color: var(--muted); }
 :root[data-theme="light"] .stat { background: var(--card-2); border-color: var(--line); }
 :root[data-theme="light"] .rank-badge { background: var(--card-2); border-color: var(--line); }
-:root[data-theme="light"] .tl-ev .ev-dot { border-color: var(--card); }
 :root[data-theme="light"] .story-progress i { background: rgba(255,255,255,.35); }
-:root[data-theme="light"] .sheet-era, :root[data-theme="light"] .bc-era, :root[data-theme="light"] .tl-band-label { color: rgba(0,0,0,.72); }
+:root[data-theme="light"] .sheet-era, :root[data-theme="light"] .bc-era { color: rgba(0,0,0,.72); }
 :root[data-theme="light"] .tm-top { background: linear-gradient(135deg, rgba(154,109,28,.13), transparent 60%); }
