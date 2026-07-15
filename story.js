@@ -62,8 +62,8 @@
     if (st.phase === 'slides') {
       const s = story.slides[st.i];
       inner = `
-        <div class="story-slide">
-          <div class="sl-emoji">${st.i === 0 ? story.emoji : ''}</div>
+        <div class="story-slide${st.i === 0 ? ' intro' : ''}">
+          ${st.i === 0 ? `<div class="sl-emoji">${story.emoji}</div>` : ''}
           ${s.k ? `<div class="sl-kicker">${esc(s.k)}</div>` : ''}
           <h2 class="sl-title">${esc(s.t)}</h2>
           <p class="sl-body">${esc(s.body)}</p>

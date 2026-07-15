@@ -235,7 +235,8 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 .story-top { position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 4px 14px; }
 .story-top .st-name { font-size: 13px; font-weight: 700; opacity: .9; display: flex; gap: 8px; align-items: center; }
 .story-close { background: rgba(0,0,0,.35); color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; width: 36px; height: 36px; font-size: 16px; cursor: pointer; }
-.story-slide { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 22px calc(30px + env(safe-area-inset-bottom)); max-width: 640px; margin: 0 auto; width: 100%; animation: slidein .3s ease; }
+.story-slide { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20px 22px calc(30px + env(safe-area-inset-bottom)); max-width: 640px; margin: 0 auto; width: 100%; animation: slidein .3s ease; }
+.story-slide.intro { justify-content: flex-end; }
 @keyframes slidein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .sl-emoji { font-size: 64px; margin-bottom: auto; padding-top: 8vh; text-align: center; filter: drop-shadow(0 6px 24px rgba(0,0,0,.5)); }
 .sl-kicker { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }

@@ -117,8 +117,14 @@ Live URL (once Pages is enabled): **https://mcdermottj639.github.io/Historia/**
    session branch pushed too.
 6. The version shows in the header badge so the owner can confirm on device.
 
-Current version as of this writing: **v6**.
+Current version as of this writing: **v7**.
 
+- **v7** — Story Mode slide layout fix: content slides now **vertically center**
+  their kicker/title/body instead of pinning them to the bottom, which left a
+  large dead gap in the middle of every non-intro slide. The intro slide keeps
+  its deliberate title-card split (emoji top, headline bottom) via a new
+  `.story-slide.intro` class; the empty `.sl-emoji` div is no longer emitted on
+  content slides.
 - **v6** — ⛵ The Great Backfill, Wave 3 (1400–1800 depth): +76 events
   (355 total) and +24 figures (96 total). Renaissance/Reformation/Scientific
   Revolution (Medici, Machiavelli, Vesalius, Kepler, Descartes), Ottomans/
