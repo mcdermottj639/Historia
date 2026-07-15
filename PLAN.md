@@ -67,9 +67,30 @@ events and a featured story — the daily-freshness hook that needs no server.
 - **New story**: "The Night the Wall Fell by Accident" (Berlin 1989 —
   Schabowski's note, Bornholmer Straße, Harald Jäger's call).
 
+### v3 — The Great Backfill, Wave 1: Ancient World depth (2026-07-15)
+- **+65 events (→ 206) and +22 figures (→ 51)**, all in the Ancient era, which
+  jumps from ~24 to 88 events / 27 people. Coverage: Mesopotamia (Uruk,
+  cuneiform, Sargon, Enheduanna, Gilgamesh, Assyria, Babylon), Egypt & Nubia/Kush
+  (Djoser, Hatshepsut, Akhenaten, Ramesses, Kerma, Piye's Black Pharaohs, Meroë,
+  Amanirenas vs Rome), Persia (Cyrus, Darius, Behistun, Persepolis, Zoroaster),
+  India (Indus Valley, Vedas, Mahavira, Maurya, Ashoka, Gupta, Aryabhata), China
+  (oracle bones, Zhou/Mandate of Heaven, Confucius, Laozi, Sun Tzu, Han, Silk
+  Road, paper, Ban Zhao) and the early Americas (Caral, Poverty Point, Olmec,
+  Chavín, Monte Albán, Nazca, Maya Long Count), plus Greece/Rome deep cuts
+  (Knossos, Mycenae, Homer, Peloponnesian War, Archimedes, Colosseum).
+- Gender- and globe-balanced; every circa date carries `approx`. Timeline
+  verified smooth at all 4 zoom levels in both themes with the denser dataset.
+- First wave of the roadmap in `BACKFILL.md` (target: 600+ events, 120+
+  figures, 12+ stories, all 5,000 years).
+
 ## Next increments (small, shippable, in rough order)
 
-1. **v3 — Trivia Lab port**: Sports-Hub engine, history categories (Ancient,
+> **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8
+> ship as their own versions (v4, v5, …), growing the dataset era by era toward
+> 600+ events / 120+ figures / 12+ stories. The feature ideas below are queued
+> behind (or interleaved with) the backfill and will take later version numbers.
+
+1. **Trivia Lab port**: Sports-Hub engine, history categories (Ancient,
    US History, Presidents, World Wars, Explorers, Inventions, Civil Rights,
    **Philadelphia & the Revolution**), ~120 hand-written deep-cut questions,
    seeded Daily Challenge folded into the day-streak, OpenTDB 23/22/20 blend
