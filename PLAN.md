@@ -21,10 +21,12 @@ trivia-first to **experience-first** — the pillars below.
    narratives (stories-app grammar: full-screen slides, progress bars) with a
    3-question retention quiz paying Wisdom. The soul of the app: history told
    as drama, legend flagged as legend.
-3. **🎮 Games** *(Before/After shipped v1)* — chronology and deduction games
-   all driven by the same event/figure datasets: Timeline Sort, Guess the Era,
-   Who Am I?, and the full deep-cut Trivia Lab (ported from Sports-Hub's
-   engine) with a rotating Daily Challenge.
+3. **🎮 Games** *(rebuilt v12)* — story-first, not date-quiz-first: 👑
+   Crossroads (become the figure, face their real decisions), the once-a-day
+   🗓️ Daily Reckoning, 🎭 Who Am I?, 🔮 What Happened Next?, plus the
+   chronology pair (Before/After, Timeline Sort) — all driven by the same
+   event/figure datasets. Still to come: the deep-cut Trivia Lab (ported from
+   Sports-Hub's engine).
 4. **📚 Learn** *(shipped v1)* — era browser with intros, people and events;
    figures gallery with live Wikipedia portraits; later: explainer cards that
    trivia misses link back to, and an SVG map view (the "where").
@@ -184,6 +186,29 @@ events and a featured story — the daily-freshness hook that needs no server.
   Verified: the scrubber/event-list timeline renders cleanly with 516 events in
   both themes; 0 page errors. Wave 5 of the `BACKFILL.md` roadmap.
 
+### v12 — The Games Hall rebuild (2026-07-16)
+- Owner verdict on the games tab: "terrible" — two date-guessers with no
+  story. Rebuilt around the owner's own idea as the flagship:
+- **👑 Crossroads** (`crossroads.js` + `data/crossroads.js`): become Caesar
+  (The Die and the Daggers, 49–44 BCE), Cleopatra (The Last Pharaoh, 48–30
+  BCE) or Washington (Victory or Death, 1776–81) and face 5 real decisions
+  each, told in the Story Mode overlay grammar. Choose, then see fact-checked
+  **History's path** vs a clearly-labeled speculative **road not taken**;
+  scored as Historian's Instinct (real choices matched), per-scenario best +
+  XP. Legend flagged in-text (the bed-sack, the asp, "Et tu, Brute").
+- **🗓️ The Daily Reckoning**: one seeded mystery event per day (same for
+  every traveler), 4-clue ladder (era → region → ~year → chronicle quote),
+  6 candidates with elimination; state persists per day. Home's Time Machine
+  button now launches it.
+- **🎭 Who Am I?** (progressive, name-redacted figure clues, 4 suspects,
+  portrait reveal) and **🔮 What Happened Next?** (face-up anchor moment,
+  3 same-region candidates — two already happened).
+- Existing games softened: blurbs on face-down cards (guess from the story,
+  not a bare title), one free slip per Timeline Sort round. **Guess the Era
+  cut** from the roadmap — it was a third date-guesser. Hub reordered: Daily
+  card → Crossroads shelf → quick games. Verified via Chromium screenshots,
+  both themes, all six games driven end-to-end.
+
 ## Next increments (small, shippable, in rough order)
 
 > **The Great Backfill is now the active track** (see `BACKFILL.md`): Waves 2–8
@@ -196,17 +221,17 @@ events and a featured story — the daily-freshness hook that needs no server.
    **Philadelphia & the Revolution**), ~120 hand-written deep-cut questions,
    seeded Daily Challenge folded into the day-streak, OpenTDB 23/22/20 blend
    (CC BY-SA attribution), misses linking to Learn content.
-2. **v4 — Guess the Era + Who Am I?** (event blurbs with names stripped;
-   progressive figure clues) + Daily Challenge rotation across game types.
-3. **v5 — more stories** toward 10+ (candidates: Hannibal's crossing, 1453's
+2. **More Crossroads scenarios** toward 8+ (candidates: Lincoln 1861–65,
+   Napoleon 1799–1815, Elizabeth I, Mansa Musa, Genghis Khan, Ashoka).
+3. **More stories** toward 10+ (candidates: Hannibal's crossing, 1453's
    cannons, the Philly yellow fever, Gettysburg's Pickett's charge, the Cuban
    Missile Crisis hour-by-hour, Shackleton) + richer sheets ("what else
    happened this year", related-story links).
-4. **v6 — SVG map view**: bundled world map, era-filtered event pins
+4. **SVG map view**: bundled world map, era-filtered event pins
    (coordinates added to events.js at authoring time — World Historical
    Gazetteer/Wikidata as authoring tools only).
 5. **Later**: per-era mastery rings, achievements, figure "collection"
-   unlocks, bank growth (events → 300+, figures → 60+).
+   unlocks. (Guess the Era deliberately cut in v12 — a third date-guesser.)
 
 ## Data sources (verdicts)
 

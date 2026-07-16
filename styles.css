@@ -222,7 +222,7 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 .story-done { color: var(--good); font-weight: 700; }
 
 /* full-screen player */
-.story-player { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; color: #f4eee0; overflow: hidden; }
+.story-player { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; color: #f4eee0; overflow: hidden; --gold: #ffd166; --good: #58c48f; --bad: #e06a5a; }
 .story-bg { position: absolute; inset: 0; background: #191410; }
 .story-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(900px 500px at 50% 0%, rgba(255,255,255,.06), transparent), linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, transparent 70%, rgba(0,0,0,.45)); }
 .story-progress { position: relative; z-index: 2; display: flex; gap: 4px; padding: calc(10px + env(safe-area-inset-top)) 12px 8px; }
@@ -319,6 +319,57 @@ main { max-width: 1020px; margin: 0 auto; padding: 18px 14px 70px; }
 .ba-over { text-align: center; padding: 26px 14px; }
 .ba-over .bo-big { font-size: 52px; }
 .ba-over h3 { font-family: var(--serif); font-size: 24px; margin: 8px 0 4px; }
+
+/* games hub: daily card + crossroads shelf */
+.daily-card { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; cursor: pointer; color: var(--text); border: 1px solid var(--accent); border-radius: var(--radius); padding: 14px 16px; background: linear-gradient(135deg, var(--card-2), var(--card)); margin-bottom: 18px; transition: transform .1s ease; }
+.daily-card:hover { transform: translateY(-2px); }
+.dc-emoji { font-size: 30px; }
+.dc-body { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.dc-name { font-family: var(--serif); font-size: 18px; font-weight: 700; }
+.dc-desc { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.dc-state { font-weight: 800; font-size: 13px; background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 7px 14px; }
+.dc-state.done { background: var(--good); color: #06241b; }
+.games-head { font-family: var(--serif); font-size: 19px; margin: 22px 0 4px; }
+.games-sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; line-height: 1.5; }
+
+/* clue games (Daily Reckoning, Who Am I?) */
+.clue-list { display: flex; flex-direction: column; gap: 8px; margin: 0 0 12px; }
+.clue { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.5; animation: fade .25s ease; }
+.clue-ic { flex: 0 0 auto; }
+.dr-opts { margin-top: 12px; }
+.dr-out { opacity: .38; text-decoration: line-through; }
+.wa-reveal { display: flex; gap: 12px; align-items: center; justify-content: center; margin-bottom: 10px; }
+.wa-reveal .fig-face { width: 56px; height: 56px; font-size: 20px; margin: 0; }
+.wa-rv-body { display: flex; flex-direction: column; text-align: left; gap: 2px; }
+.wa-rv-body b { font-family: var(--serif); font-size: 17px; }
+.wa-rv-body span { font-size: 12.5px; color: var(--muted); }
+
+/* What Happened Next? */
+.wn-anchor { display: flex; flex-direction: column; gap: 7px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; }
+.wn-year { font-weight: 800; color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
+.wn-title { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.2; }
+.wn-blurb { font-size: 14px; color: var(--text); opacity: .92; line-height: 1.55; }
+
+/* softened chronology cards: guess from the story, not the bare title */
+.bc-blurb { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.ts-blurb { font-size: 12px; color: var(--muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Crossroads player (rides on the story-player shell) */
+.story-player.xr .story-slide { overflow-y: auto; justify-content: flex-start; padding-top: 5vh; }
+.story-player.xr .story-slide.intro { justify-content: flex-end; padding-top: 20px; }
+.xr-begin { margin-top: 20px; align-self: flex-start; }
+.xr-ask { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+.xr-choices { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+.xr-verdict { font-family: var(--serif); font-size: 24px; font-weight: 700; margin: 4px 0 10px; }
+.xr-verdict.match { color: #8fe3b8; }
+.xr-verdict.diverge { color: #ffd166; }
+.xr-panel { border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); text-align: left; }
+.xr-panel p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; opacity: .95; }
+.xr-panel.path { border-color: rgba(88,196,143,.55); }
+.xr-panel.alt { border-style: dashed; }
+.xr-ph { font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); }
+.xr-next { margin-top: 6px; align-self: flex-start; }
+.xr-fate { font-size: 14px; line-height: 1.6; opacity: .85; max-width: 480px; margin: 6px auto 4px; }
 
 /* ==========================================================================
    LEARN — eras + figures

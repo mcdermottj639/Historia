@@ -35,6 +35,8 @@ const K = {
   BEST: 'historia:best',       // {gameKey: bestScore}
   THEME: 'historia:theme',     // 'light' | 'dark'
   PORTRAITS: 'historia:portraits', // {wikiTitle: thumbUrl | 0 (known-missing)}
+  XROADS: 'historia:crossroads',   // {scenarioId: {done, best (matches)}}
+  DAILY: 'historia:daily',         // {date, clues, wrong, out[], done, score} — today's Reckoning
 };
 
 // --- Wisdom (XP) + ranks ------------------------------------------------------

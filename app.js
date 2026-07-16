@@ -3,7 +3,7 @@
  * About, service-worker registration. Loaded LAST — data/*, core.js and the
  * feature modules (timeline/story/games/learn) are already on window. */
 
-const APP_VERSION = 'v11';
+const APP_VERSION = 'v12';
 
 // --- tabs ---------------------------------------------------------------------
 const PANELS = ['home', 'timeline', 'stories', 'games', 'learn', 'about'];
@@ -100,7 +100,7 @@ function renderHome() {
       </div>
       <div class="tm-actions">
         <button class="btn primary" data-act="tl">Explore ${fmtYear(ev.y)} on the timeline</button>
-        <button class="btn ghost" data-act="game">Play today’s round</button>
+        <button class="btn ghost" data-act="game">${(readJSON(K.DAILY, {}).date === todayStr() && readJSON(K.DAILY, {}).done) ? '🗓️ See today’s Reckoning' : '🗓️ Play the Daily Reckoning'}</button>
       </div>
     </div>
 
@@ -117,7 +117,7 @@ function renderHome() {
   // wire
   $$('#home-host [data-ev]').forEach((r) => (r.onclick = () => openEventSheet(window.H_EVENTS.find((e) => e.id === r.dataset.ev))));
   host.querySelector('[data-act="tl"]').onclick = () => { showTab('timeline'); window.Timeline.focusYear(ev.y, 2); };
-  host.querySelector('[data-act="game"]').onclick = () => { showTab('games'); window.Games.startBA(); };
+  host.querySelector('[data-act="game"]').onclick = () => { showTab('games'); window.Games.startDaily(); };
 
   // today's featured story card (reuses the shelf card look)
   const sEra = window.H_ERA_BY_KEY[todaysStory.era];
@@ -141,10 +141,16 @@ function renderAbout() {
     <div class="card">
       <p><b>Historia ${APP_VERSION}</b> — a personal history app: a scrubbable
       Grand Timeline of 5,000 years, cinematic tap-through stories, a daily
-      “On This Day” feed, era guides, a figures gallery and chronology games
-      (Before or After, Timeline Sort), with more on the way — Guess the Era,
-      Who Am I?, the deep-cut Trivia Lab, and maps. Sibling app to
+      “On This Day” feed, era guides, a figures gallery and a games hall —
+      👑 Crossroads (become the figure and face their real decisions), the
+      once-a-day 🗓️ Daily Reckoning, 🎭 Who Am I?, 🔮 What Happened Next?,
+      ⚖️ Before or After and ⏳ Timeline Sort — with the deep-cut Trivia Lab
+      and maps still to come. Sibling app to
       <a href="https://mcdermottj639.github.io/Sports-Hub/" rel="noopener">Sports-Hub</a>.</p>
+      <p class="muted">In Crossroads, what really happened is fact-checked history; the
+      “road not taken” is clearly-labeled informed speculation — history has no
+      save file, so nobody knows for sure. Where legend diverges from the record
+      (the carpet, the asp, “Et tu, Brute”), the text says so.</p>
       <p class="muted">Pure static app — no backend, no accounts, no tracking. Progress
       (Wisdom, streaks, bests) is saved on this device only. Install it to your
       home screen; it works offline after first load and auto-updates when online.</p>
